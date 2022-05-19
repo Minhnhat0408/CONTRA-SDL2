@@ -29,7 +29,11 @@ MainCharacter::MainCharacter(SDL_Renderer* renderer):screen(renderer)
 	map_pos.x = 0;
 	map_pos.y = 0;
 	respawn_time = 0;
+<<<<<<< HEAD
 	Life = 5;
+=======
+	Life = 3;
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 	running.tex = IMG_LoadTexture(renderer,"resources/gfx/MainChar2.png");running.frame = 0;
     standing.tex = IMG_LoadTexture(renderer,"resources/gfx/Standing.png");standing.frame = 0;
 	jumping.tex = IMG_LoadTexture(renderer,"resources/gfx/Jumping.png");jumping.frame = 0;
@@ -43,6 +47,7 @@ MainCharacter::MainCharacter(SDL_Renderer* renderer):screen(renderer)
 }
 
 MainCharacter::~MainCharacter(){
+<<<<<<< HEAD
 	SDL_DestroyTexture(running.tex);running.tex = NULL;
 	SDL_DestroyTexture(standing.tex);standing.tex = NULL;
 	SDL_DestroyTexture(jumping.tex);jumping.tex = NULL;
@@ -54,6 +59,15 @@ MainCharacter::~MainCharacter(){
 	SDL_DestroyTexture(fakewater);fakewater = NULL;
 	end_posc.x = 0;
 	end_posc.y = 0;
+=======
+	SDL_DestroyTexture(running.tex);
+	SDL_DestroyTexture(standing.tex);
+	SDL_DestroyTexture(jumping.tex);
+	SDL_DestroyTexture(shooting.tex);
+	SDL_DestroyTexture(runshootup.tex);
+	SDL_DestroyTexture(diving.tex);
+	SDL_DestroyTexture(shootup.tex);
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 }
 
 void MainCharacter::animationConfig()
@@ -118,7 +132,11 @@ void MainCharacter::animationConfig()
 }
 
 void MainCharacter::Display()
+<<<<<<< HEAD
 {	
+=======
+{
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 	if(user_input.left == 1 || user_input.right ==1)
 	{
 		if(shootimg == true && user_input.up == 0)
@@ -189,7 +207,11 @@ void MainCharacter::Display()
 		}
 		
 	}
+<<<<<<< HEAD
 	if(respawn_time <= 60)
+=======
+	if(respawn_time == 0)
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 	{
 		SDL_Rect*	running_clip = &frame_clip_running[running.frame/5];
 		SDL_Rect* stand_clip = &frame_clip_standing[standing.frame/14];
@@ -198,7 +220,11 @@ void MainCharacter::Display()
 		SDL_Rect* shootup_clip = &frame_clip_shootup[shootup.frame/14];
 		SDL_Rect* runshootup_clip = &frame_clip_runshootup[runshootup.frame/5];
 		SDL_Rect* diving_clip = &frame_clip_diving[diving.frame/14+2];
+<<<<<<< HEAD
 		end_posc.y = (on_ground) ? 80:40;
+=======
+		end_posc.y = (on_ground) ? 80:41;
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 		if(underwater)
 		{	
 			if(!shootimg)
@@ -211,6 +237,7 @@ void MainCharacter::Display()
 			}
 
 		}else{
+<<<<<<< HEAD
 			show_pos.y = posc.y;
 			showClip  = {(int)show_pos.x,(int)show_pos.y,(int) end_posc.x, (int)end_posc.y};
 		}
@@ -326,6 +353,120 @@ void MainCharacter::Display()
 		
 	}
 	//Lives_display();
+=======
+			if(user_input.up == 1 && move_val.x == 0)
+			{
+				show_pos.y = posc.y-20;
+				showClip  = {(int) show_pos.x,(int)show_pos.y,(int) end_posc.x, (int)end_posc.y+20};
+			}else {
+				show_pos.y = posc.y;
+				showClip  = {(int)show_pos.x,(int)show_pos.y,(int) end_posc.x, (int)end_posc.y};
+			}
+		}
+		
+		if(status == WALK_RIGHT)
+		{	
+			if(on_ground)
+			{	
+				if(!underwater || shootimg)
+				{
+					if(move_val.x !=0)
+					{	
+						if(shootimg == true && user_input.up == 0 )
+						{	
+							SDL_RenderCopy(screen,shooting.tex,shooting_clip,&showClip);
+						}
+						if(!shootimg && user_input.up == 0 )
+						{
+							SDL_RenderCopy(screen,running.tex,running_clip,&showClip);
+						}
+						
+						if(user_input.up ==1)
+						{	
+							SDL_RenderCopy(screen,runshootup.tex,runshootup_clip,&showClip);
+						}
+						
+					}else{
+						if(user_input.up == 1)
+						{	
+							SDL_RenderCopy(screen,shootup.tex,shootup_clip,&showClip);
+						}else{
+							SDL_RenderCopy(screen,standing.tex,stand_clip,&showClip);
+						}
+						
+					}
+					if(underwater)
+					{
+						SDL_Rect water = showClip;
+						water.y+= water.h -45;
+						water.x-=2;
+						water.w+=2 ;
+						SDL_RenderCopy(screen,fakewater,&waterframe,&water);
+					}
+				}else{
+					SDL_RenderCopy(screen,diving.tex,diving_clip,&showClip);
+					
+				}
+				
+			}else{
+				SDL_RenderCopy(screen,jumping.tex,jumping_clip,&showClip);
+				
+			}
+			
+		}else{
+			if(on_ground)
+			{	
+				if( !underwater || shootimg)
+				{
+					if(move_val.x !=0)
+					{	
+						if(shootimg == true && user_input.up == 0 )
+						{	
+							
+							SDL_RenderCopyEx(screen,shooting.tex,shooting_clip,&showClip,0,NULL,SDL_FLIP_HORIZONTAL);
+						}
+						if(!shootimg && user_input.up == 0 )
+						{
+							SDL_RenderCopyEx(screen,running.tex,running_clip,&showClip,0,NULL,SDL_FLIP_HORIZONTAL);
+						}
+						
+						if(user_input.up == 1)
+						{	
+							SDL_RenderCopyEx(screen,runshootup.tex,runshootup_clip,&showClip,0,NULL,SDL_FLIP_HORIZONTAL);
+						}
+						
+					}else{
+						if(user_input.up == 1)
+						{	
+							SDL_RenderCopyEx(screen,shootup.tex,shootup_clip,&showClip,0,NULL,SDL_FLIP_HORIZONTAL);
+						}else
+						{
+							SDL_RenderCopyEx(screen,standing.tex,stand_clip,&showClip,0,NULL,SDL_FLIP_HORIZONTAL);
+						}
+					}
+					if(underwater)
+					{
+						SDL_Rect water = showClip;
+						water.y+= water.h -45;
+						water.x-=2;
+						water.w+=2 ;
+						SDL_RenderCopy(screen,fakewater,&waterframe,&water);
+					}
+				}else{
+					SDL_RenderCopyEx(screen,diving.tex,diving_clip,&showClip,0,NULL,SDL_FLIP_HORIZONTAL);
+					
+				}
+				
+			}else{
+				SDL_RenderCopyEx(screen,jumping.tex,jumping_clip,&showClip,0,NULL,SDL_FLIP_HORIZONTAL);
+			}
+			
+		}
+		// SDL_RenderDrawRect(screen,&showClip);
+		
+	}
+	Lives_display();
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 	
 }
 
@@ -358,19 +499,31 @@ void MainCharacter::HandlingUser(SDL_Event event,Map& m,Mix_Chunk* gun_shot)
 			break;
 			case SDLK_SPACE:
 			{	
+<<<<<<< HEAD
 				if(!underwater && on_ground )
+=======
+				if(!underwater)
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 					user_input.Jump = true;
 			}
 			break;
 			case SDLK_w:
 			{	
+<<<<<<< HEAD
 				if(on_ground )
+=======
+				if(on_ground)
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 					user_input.up = 1;
 			}
 			break;
 			case SDLK_j:
 			{	
+<<<<<<< HEAD
 				if(user_input.shoot == true && magazine.size() < BULLET_NUMBER && respawn_time <= 60)
+=======
+				if(user_input.shoot == true && magazine.size() < BULLET_NUMBER )
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 				{	
 					if(gun_hold_time <= 30)
 						gun_hold_time+=10;
@@ -399,6 +552,14 @@ void MainCharacter::HandlingUser(SDL_Event event,Map& m,Mix_Chunk* gun_shot)
 				user_input.right =0;
 			}
 			break;
+<<<<<<< HEAD
+=======
+			// case SDLK_s:
+			// {
+			// 	user_input.down = 0;
+			// }
+			// break;
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 			case SDLK_w:
 			{
 				user_input.up = 0;
@@ -416,7 +577,11 @@ void MainCharacter::HandlingUser(SDL_Event event,Map& m,Mix_Chunk* gun_shot)
 
 void MainCharacter::Movement(map& map_data,Map& map)
 {	
+<<<<<<< HEAD
 	if(respawn_time <= 60)
+=======
+	if(respawn_time == 0)
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 	{
 		move_val.x = 0;
 		move_val.y += 2;
@@ -442,22 +607,37 @@ void MainCharacter::Movement(map& map_data,Map& map)
 		}
 		if(user_input.down == 1)
 		{	
+<<<<<<< HEAD
 			posc.y+=move_val.y;
 		}
 		HandleMoveandMap(map_data,map);
 		//cout << posc.y << endl;
+=======
+			posc.y+=move_val.y+1;
+		}
+		HandleMoveandMap(map_data,map);
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 	}
 	if(respawn_time > 0)
 	{
 		respawn_time--;
 		
+<<<<<<< HEAD
 		if(respawn_time == 60)
+=======
+		if(respawn_time ==0)
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 		{
 			posc.y = 0;
 			move_val.x = 0;
 			move_val.y = 0;
 		}
 	}
+<<<<<<< HEAD
+=======
+	
+	
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 }
 
 
@@ -475,7 +655,11 @@ void MainCharacter::HandleMoveandMap(map& map,Map& mapfull)
 	// CHECK VERTICAL
 	int standard_height = 80;
 
+<<<<<<< HEAD
 	if(x1 >= 0 && x2 < MAX_MAP_X && y1 >=0 && y2 <= 500)
+=======
+	if(x1 >= 0 && x2 < MAX_MAP_X && y1 >=0 && y2 < 8)
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 	{	
 		if(move_val.y > 0)
 		{	
@@ -489,7 +673,10 @@ void MainCharacter::HandleMoveandMap(map& map,Map& mapfull)
 					move_val.y = 0;
 					on_ground = true;
 					underwater = false;
+<<<<<<< HEAD
 					
+=======
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 				}
 				
 			}else if(map.Tiles[y2][x1] == 2 || map.Tiles[y2][x2] == 2)
@@ -499,7 +686,11 @@ void MainCharacter::HandleMoveandMap(map& map,Map& mapfull)
 				{	
 					
 					posc.y = top_tile;
+<<<<<<< HEAD
 					posc.y -= standard_height+1;
+=======
+					posc.y -= standard_height + 1;
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 					move_val.y = 0;
 					on_ground = true;
 					underwater = false;
@@ -519,7 +710,11 @@ void MainCharacter::HandleMoveandMap(map& map,Map& mapfull)
 			}
 		}
 	}
+<<<<<<< HEAD
 	if(respawn_time <= 60)
+=======
+	if(respawn_time == 0)
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 	{
 		posc.x += move_val.x;
 		posc.y += move_val.y;
@@ -550,7 +745,11 @@ void MainCharacter::HandleMoveandMap(map& map,Map& mapfull)
 	}
 	if( posc.y >map.max_y)
 	{
+<<<<<<< HEAD
 		respawn_time = 120;
+=======
+		respawn_time = 50;
+>>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 		Life--;
 		//move_val.x = 0;
 	}
