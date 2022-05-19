@@ -141,13 +141,8 @@ namespace Collisions
         return false;
     }
 }
-<<<<<<< HEAD
 namespace MenuUtils
 {   
-=======
-namespace Menu
-{
->>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
     inline bool CheckMouseClick(const int& x, const int& y, const SDL_Rect& rect)
     {
         if (x >= rect.x && x <= rect.x + rect.w &&
@@ -157,96 +152,5 @@ namespace Menu
         }
         return false;
     }
-<<<<<<< HEAD
-=======
-    inline int showMenu(TTF_Font* font,SDL_Renderer*screen,SDL_Event p_event,const char* text)
-    {      
-        
-        SDL_Texture* background = IMG_LoadTexture(screen,"resources/gfx/TilteBG.png");
-        SDL_Rect origin = {0,0,1000,500};
-        Text Menu_text[3];
-        Menu_text[0].setText(text);
-        Menu_text[1].setText("CONTROLS");
-        Menu_text[2].setText("QUIT");
-        Mix_Music* gchunk = Mix_LoadMUS("resources/Sound effects/Title song.wav");
-        Mix_PlayMusic(gchunk,1);
-        for(int i = 0; i <3;i++)
-        {
-            Menu_text[i].SetColor(Text::WHITE);
-        }
-        bool selectedItem[3];
-        int mouse_posx;
-        int mouse_posy;
-        while (true)
-        {
-            SDL_RenderCopy(screen,background,&origin,NULL);
-            for (int i = 0; i < 3; ++i)
-            {   
-                Menu_text[i].LoadFromRenderText(font,screen);
-                Menu_text[i].RenderText(screen,240,290+i*50);
-            }
-            while (SDL_PollEvent(&p_event))
-            {
-                switch (p_event.type)
-                {
-                    case SDL_QUIT:
-                        return 1;
-                    case SDL_MOUSEMOTION:
-                        {
-                            mouse_posx = p_event.motion.x;
-                            mouse_posy = p_event.motion.y;
-
-                            for (int i = 0; i < 3; i++)
-                            {
-                                if (CheckMouseClick(mouse_posx, mouse_posy, Menu_text[i].GetRect()))
-                                {
-                                    if (selectedItem[i] == false)
-                                    {
-                                        selectedItem[i] = 1;
-                                        Menu_text[i].SetColor(Text::RED);
-                                    }
-                                }
-                                else
-                                {
-                                    if (selectedItem[i] == true)
-                                    {
-                                        selectedItem[i] = 0;
-                                        Menu_text[i].SetColor(Text::WHITE);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case SDL_MOUSEBUTTONDOWN:
-                        {
-                            mouse_posx = p_event.button.x;
-                            mouse_posy = p_event.button.y;
-
-                            for (int i = 0; i < 3; i++)
-                            {
-                                if (CheckMouseClick(mouse_posx, mouse_posy, Menu_text[i].GetRect()))
-                                {   
-                                    return i-1;
-                                }
-                            }
-                        }
-                        break;
-                    case SDL_KEYDOWN:
-                        if (p_event.key.keysym.sym == SDLK_ESCAPE)
-                        {
-                            return 1;
-                        }
-                default:
-                    break;
-                }
-            }
-            SDL_RenderPresent(screen);
-        }
-        
-        Mix_FreeMusic(gchunk);
-        gchunk = NULL;
-        return 1;
-    }
->>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
 
 }

@@ -20,11 +20,7 @@ class MainCharacter
         Vector2f& getMove_val(){return move_val;}
         Vector2f& getShowPos(){return show_pos;}
         SDL_Rect getRect(){return showClip;}
-<<<<<<< HEAD
         bool Death(){return (respawn_time > 60);};
-=======
-        bool Death(){return (respawn_time > 0);};
->>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
         void animationConfig();
         void Display();
 
@@ -32,11 +28,7 @@ class MainCharacter
         void Movement(map& map_data,Map& map);
         void HandleMoveandMap(map& map,Map& mapfull);
         void setMap(const int mapx,const int mapy){map_pos.x = mapx;map_pos.y = mapy;}// need to be cleenup
-<<<<<<< HEAD
         void Respawn(){respawn_time = 120;showClip.y = 0;posc.y = 0;underwater = false;on_ground = true;};
-=======
-        void Respawn(){respawn_time = 50;showClip.y = 0;posc.y = 0;underwater = false;};
->>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
         vector<Bullet*> get_magazine()const {return magazine;}
         void Fire();
         void removeBullet(const int& indx);
@@ -44,11 +36,8 @@ class MainCharacter
 
         int Life;
         void Lives_display();
-<<<<<<< HEAD
         //void Terminate(){respawn_time = 1000;showClip.x = 0;showClip.y = 0;}
         int get_Respawntime(){return respawn_time;}
-=======
->>>>>>> 27b7e42e2bd791de28fc9a352244f6b2f1541760
     private:
         Vector2f posc; //starting position of the char
         Vector2f end_posc; //  width and height of the characteer
