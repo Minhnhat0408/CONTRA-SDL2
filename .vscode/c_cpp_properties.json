@@ -13,7 +13,7 @@
             "cStandard": "gnu11",
             "cppStandard": "gnu++14",
             "intelliSenseMode": "windows-gcc-x86",
-            "compilerPath": "C:/mingw-w64/i686-7.2.0-posix-dwarf-rt_v5-rev0/mingw32/bin/g++.exe"
+            "compilerPath": "E:/mingw-w64/i686-7.2.0-posix-dwarf-rt_v5-rev0/mingw32/bin/g++.exe"
         }
     ],
     "version": 4
